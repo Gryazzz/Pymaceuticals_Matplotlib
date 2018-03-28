@@ -2,13 +2,14 @@
 **ANALYSIS**
 
 1. Tumor volume is steadily reduced with only Capomulin (-20% in 45 days). Other drugs don't show any positive impact, comparing to Placebo. Standard error values show that there is no large variability in mice population and individual tumor response to each drug is mostly common among all mice.
-2. The metastatic spread is significantly lower among mice that were treated with Capomulin. SEMs show the Capomulin population consistency. Other drugs have smaller effect on the spread, and higher variability in mice population responce.
+2. The metastatic spread is significantly lower among mice that were treated with Capomulin. SEMs show the Capomulin population consistency. Other drugs have smaller effect on the spread, and higher variability in mice population response.
 3. Capomulin is the only drug with a strong positive effect on a survival rate, which is 84%, comparing to 44% and 36% after treatment with other drugs. Other drugs have the same survival rate as Placebo, that means that they don't bring any impact.
 
 
 ```python
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib import style
 from itertools import cycle
 ```
 
@@ -301,9 +302,11 @@ drug_list = ['Capomulin', 'Infubinol', 'Ketapril','Placebo']
 
 ```python
 # Create subplots
+style.use('classic')
+
 fig, ax = plt.subplots()
-fig.suptitle('Tumor Responce to Treatment', fontsize=12, fontweight="bold")
-fig.set_size_inches(15,7)
+fig.suptitle('Tumor Responce to Treatment', fontsize=14, fontweight="bold")
+fig.set_size_inches(13,6)
 plt.rcParams['legend.numpoints'] = 2 # Set 2 markers in legend
 ax.set_xlim(tt_mean['Timepoint'][0], tt_mean['Timepoint'].max(), 1)
 
@@ -315,18 +318,12 @@ for drug in tt_mean.columns:
 ax.set_xlabel('Time (days)')
 ax.set_ylabel('Tumor Volume (mm3)')
 ax.grid(linestyle='dotted', linewidth=2)
-ax.legend(loc='best', fancybox=True, shadow=True, borderpad=2, labelspacing=2, handlelength=3)
+ax.legend(loc='best', fancybox=True, shadow=True, borderpad=1, labelspacing=1, handlelength=3)
+plt.savefig('Images/Tumor Responce to Treatment.png')
 ```
 
 
-
-
-    <matplotlib.legend.Legend at 0x11ae53e10>
-
-
-
-
-![png](output_10_1.png)
+![png](output_10_0.png)
 
 
 
@@ -349,8 +346,8 @@ mt_err = metast_time_sem.reset_index()
 ```python
 # Create a plot
 fig, ax = plt.subplots()
-fig.suptitle('Metastatic Spread During Treatment', fontsize=12, fontweight="bold")
-fig.set_size_inches(15,7)
+fig.suptitle('Metastatic Spread During Treatment', fontsize=14, fontweight="bold")
+fig.set_size_inches(13,6)
 plt.rcParams['legend.numpoints'] = 2
 ax.set_xlim(mt_mean['Timepoint'][0], mt_mean['Timepoint'].max(), 1)
 ax.set_ylim(0, 4, 0.5)
@@ -363,18 +360,12 @@ for drug in mt_mean.columns:
 ax.set_xlabel('Treatment Duration (days)')
 ax.set_ylabel('Metastatic Sites')
 ax.grid(linestyle='dotted', linewidth=2)
-ax.legend(loc='best', fancybox=True, shadow=True, borderpad=2, labelspacing=2, handlelength=3)
+ax.legend(loc='best', fancybox=True, shadow=True, borderpad=1, labelspacing=1, handlelength=3)
+plt.savefig('Images/Metastatic Spread During Treatment.png')
 ```
 
 
-
-
-    <matplotlib.legend.Legend at 0x11e9c6f60>
-
-
-
-
-![png](output_13_1.png)
+![png](output_13_0.png)
 
 
 
@@ -390,8 +381,8 @@ surv_rate = s_rate.reset_index()
 ```python
 # Create a plot
 fig, ax = plt.subplots()
-fig.suptitle('Survival During Treatment', fontsize=12, fontweight="bold")
-fig.set_size_inches(15,7)
+fig.suptitle('Survival During Treatment', fontsize=14, fontweight="bold")
+fig.set_size_inches(13,6)
 plt.rcParams['legend.numpoints'] = 2
 ax.set_xlim(surv_rate['Timepoint'][0], surv_rate['Timepoint'].max(), 1)
 
@@ -403,18 +394,12 @@ for drug in surv_rate.columns:
 ax.set_xlabel('Time (days)')
 ax.set_ylabel('Survival Rate')
 ax.grid(linestyle='dotted', linewidth=2)
-ax.legend(loc='best', fancybox=True, shadow=True, borderpad=2, labelspacing=2, handlelength=3)
+ax.legend(loc='best', fancybox=True, shadow=True, borderpad=1, labelspacing=1, handlelength=3)
+plt.savefig('Images/Survival During Treatment.png')
 ```
 
 
-
-
-    <matplotlib.legend.Legend at 0x11edff208>
-
-
-
-
-![png](output_15_1.png)
+![png](output_15_0.png)
 
 
 **Create Bar Chart**
@@ -442,8 +427,8 @@ dpabove = drug_perc_df[drug_perc_df['% Tumor Volume Change'] > 0]
 ```python
 # Create a plot
 fig, ax = plt.subplots()
-fig.suptitle('Tumor Change Over 45 Day Treatment', fontsize=12, fontweight="bold")
-fig.set_size_inches(15,7)
+fig.suptitle('Tumor Change Over 45 Day Treatment', fontsize=14, fontweight="bold")
+fig.set_size_inches(13,6)
 ax.set_ylabel('% Tumor Volume Change')
 
 ax.bar(dpbelow['Drug'], dpbelow['% Tumor Volume Change'], edgecolor='black', color='r', linewidth=2, width=1,
@@ -465,6 +450,7 @@ for rect in rects:
            fontsize=14, fontstyle='italic')
 
 ax.grid(linestyle='dotted', linewidth=2)
+plt.savefig('Images/Tumor Change Over 45 Day Treatment.png')
 ```
 
 
